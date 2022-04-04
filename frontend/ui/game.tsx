@@ -2,6 +2,7 @@ import * as React from 'react';
 import axios from 'axios';
 import { Settings, SettingsButton, SettingsPanel } from '~/ui/settings';
 import Timer from '~/ui/timer';
+import { InstructionsButton, InstructionsPanel } from '~/ui/instructions';
 
 const defaultFavicon =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAA8SURBVHgB7dHBDQAgCAPA1oVkBWdzPR84kW4AD0LCg36bXJqUcLL2eVY/EEwDFQBeEfPnqUpkLmigAvABK38Grs5TfaMAAAAASUVORK5CYII=';
@@ -263,6 +264,18 @@ export class Game extends React.Component {
       });
   }
 
+  public toggleInstructionsView(e) {
+    if (e != null) {
+      e.preventDefault();
+    }
+    if (this.state.mode == 'instructions') {
+      this.setState({ mode: 'game' });
+    } else {
+      this.setState({ mode: 'instructions' });
+    }
+  }
+
+
   public toggleSettingsView(e) {
     if (e != null) {
       e.preventDefault();
@@ -297,6 +310,15 @@ export class Game extends React.Component {
         />
       );
     }
+
+    if (this.state.mode == 'instructions') {
+      return (
+        <InstructionsPanel
+          toggleView={(e) => this.toggleInstructionsView(e)}
+        />
+      );
+    }
+
 
     let status, statusClass;
     if (this.state.game.winning_team) {
@@ -422,6 +444,14 @@ export class Game extends React.Component {
           }
           role="radiogroup"
         >
+
+          <InstructionsButton
+            onClick={(e) => {
+              this.toggleInstructionsView(e);
+            }}
+          />
+
+
           <SettingsButton
             onClick={(e) => {
               this.toggleSettingsView(e);
