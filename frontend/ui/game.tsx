@@ -32,7 +32,24 @@ export class Game extends React.Component {
     if (this.state.settings.fullscreen) {
       classes += ' full-screen';
     }
+    if (this.currentTeam()==='blue'){
+      classes += ' blue-mode';
+
+    }
+    if (this.currentTeam()==='red'){
+      classes += ' red-mode';
+
+    }
     return classes;
+  }
+
+  private setColourMode() {
+    if (this.currentTeam()==='blue') {
+      document.body.classList.add('blue-mode');
+    }
+    if (this.currentTeam()==='red') {
+      document.body.classList.add('red-mode');
+    }
   }
 
   public handleKeyDown(e) {
@@ -82,6 +99,7 @@ export class Game extends React.Component {
           .setAttribute(
             'href',
             this.currentTeam() === 'blue' ? blueTurnFavicon : redTurnFavicon
+            //this.currentTeam() === 'blue' ? blueTurnFavicon : redTurnFavicon
           );
       }
     }
@@ -234,6 +252,7 @@ export class Game extends React.Component {
     axios
       .post('/next-game', {
         game_id: this.state.game.id,
+        player_id: this.state.player.id
         word_set: this.state.game.word_set,
         create_new: true,
         timer_duration_ms: this.state.game.timer_duration_ms,
@@ -285,7 +304,7 @@ export class Game extends React.Component {
       status = this.state.game.winning_team + ' wins!';
     } else {
       statusClass = this.currentTeam() + '-turn';
-      status = this.currentTeam() + "'s turn";
+      status = this.currentTeam() + ", it's your turn";
     }
 
     let endTurnButton;
@@ -362,7 +381,10 @@ export class Game extends React.Component {
               {this.remaining(otherTeam)}
             </span>
           </div>
-          <div id="status" className="status-text">
+          {/* <div id="status" className="status-text">
+            {status}
+          </div> */}
+          <div id="status" className="status-mode">
             {status}
           </div>
           {endTurnButton}

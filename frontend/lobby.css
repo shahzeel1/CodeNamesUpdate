@@ -6,6 +6,7 @@ body {
 
 #topbar {
   padding: 1em;
+  
 }
 
 #topbar a {
@@ -15,6 +16,14 @@ body {
 
 .dark-mode #topbar a {
   color: #888;
+}
+
+.blue-mode .status-mode #topbar a {
+  background: #6082B6;
+}
+
+.red-mode .status-mode #topbar a {
+  background: #FF0000;
 }
 
 h1 {
@@ -58,6 +67,16 @@ p.intro {
 }
 
 #new-game input#game-name {
+  height: 50px;
+  width: 350px;
+  padding: 5px 10px;
+  font-size: 1.3em;
+  border: 1px #ddd solid;
+  border-right: none;
+  letter-spacing: 0.1em;
+}
+
+#new-game input#player-name {
   height: 50px;
   width: 350px;
   padding: 5px 10px;

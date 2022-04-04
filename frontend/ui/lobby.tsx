@@ -7,6 +7,7 @@ import OriginalWords from '~/words.json';
 
 export const Lobby = ({ defaultGameID }) => {
   const [newGameName, setNewGameName] = React.useState(defaultGameID);
+  const [newPlayerName, setNewPlayerName] = React.useState('PlayerX');
   const [selectedWordSets, setSelectedWordSets] = React.useState([
     'English (Original)',
   ]);
@@ -80,6 +81,16 @@ export const Lobby = ({ defaultGameID }) => {
             create a new game or join an existing game, enter a game identifier
             and click 'GO'.
           </p>
+          <input
+            type="text"
+            id="player-name"
+            aria-label="player identifier"
+            autoFocus
+            onChange={(e) => {
+              setNewPlayerName(e.target.value);
+            }}
+            value={newPlayerName}
+          />
           <input
             type="text"
             id="game-name"
